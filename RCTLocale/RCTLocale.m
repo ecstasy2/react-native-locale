@@ -86,6 +86,10 @@ RCT_EXPORT_METHOD(dateFormat:(nonnull NSDate *)date
     NSLocale *locale = [NSLocale currentLocale];
     NSCalendar *cal = [locale objectForKey:NSLocaleCalendar];
     
+    NSTimeZone* timeZone = [NSTimeZone localTimeZone];
+    NSString* timeZoneName = [timeZone localizedName:NSTimeZoneNameStyleStandard locale:[NSLocale currentLocale]];
+
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateStyle = NSDateFormatterFullStyle;
     NSMutableDictionary *formats = [[NSMutableDictionary alloc]initWithCapacity:4];
@@ -114,6 +118,7 @@ RCT_EXPORT_METHOD(dateFormat:(nonnull NSDate *)date
             @"alternateQuotationBeginDelimiterKey": [locale objectForKey:NSLocaleAlternateQuotationBeginDelimiterKey],
             @"alternateQuotationEndDelimiterKey": [locale objectForKey:NSLocaleAlternateQuotationEndDelimiterKey],
             @"preferredLanguages": [NSLocale preferredLanguages],
+            @"timeZoneName": timeZoneName,
             @"localeDateFormats": formats
    };
 }
